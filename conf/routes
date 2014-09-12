@@ -1,0 +1,15 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.sayHello()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# Problem list
+GET     /problems                    controllers.ProblemList.show()
+
+# Problem 1
+GET     /problems/001                controllers.Problem.show(parameter1: Int, parameter2: Int, upperBound: Int)

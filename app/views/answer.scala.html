@@ -1,0 +1,16 @@
+@(question: String, answer: Int)
+
+        <body>@question <br><br><br>
+        The answer is @answer.<br><br><br><br>
+        You can change the parameters of the question if you want:
+        </body>
+
+<form name="changeParameters" action="001" method="get">
+    <dt><label>Parameter 1 :</label></dt>
+    <dd><input type="text" name="parameter1" value=""></dd>
+    <dt><label>Parameter 2 :</label></dt>
+    <dd><input type="text" name="parameter2" value=""></dd>
+    <dt><label>Upper bound :</label></dt>
+    <dd><input type="text" name="upperBound" value=""></dd>
+    <dd><input type="submit" value="Submit"></dd>
+</form>
