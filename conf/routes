@@ -12,4 +12,4 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /problems                    controllers.ProblemList.show()
 
 # Problem 1
-GET     /problems/001                controllers.Problem.show(parameter1: Int, parameter2: Int, upperBound: Int)
+GET     /problems/:id                controllers.Problem.show(id: Int)

@@ -1,19 +1,35 @@
 [
 	{
-		name: "Problem 1",
-		question: "If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of %parameter1% or %parameter2% below %upperbound%.",
-		parameters: [
+		"id": "1",
+		"name": "Problem 1",
+		"question": "If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of %parameter1% or %parameter2% below %upperbound%.",
+		"parameters": [
 			{
-				name: "parameter1",
-				default: 3
+				"name": "parameter1",
+				"default": 3
 			},
 			{
-				name: "parameter2",
-				default: 5
+				"name": "parameter2",
+				"default": 5
 			},
 			{
-				name: "upperbound",
-				default: 1000
+				"name": "upperBound",
+				"default": 1000
+			}
+		]
+	},
+	{
+		"id": "2",
+		"name": "Problem 2",
+		"question": "If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of %parameter1% or %parameter2%.",
+		"parameters": [
+			{
+				"name": "parameter1",
+				"default": 3
+			},
+			{
+				"name": "parameter2",
+				"default": 5
 			}
 		]
 	}

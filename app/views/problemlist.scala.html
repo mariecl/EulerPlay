@@ -1,3 +1,10 @@
+@(problems : List[functions.Problem], queryStrings : HashMap[functions.Problem, String])
+
 <h1>List of available problems:</h1>
 
-<a href="/problem/001?parameter1=3&parameter2=5&upperBound=1000">Problem 1</a>
+<ul>
+@for(problem <- problems) {
+
+  <li> <a href = "/problems/@problem.id@queryStrings.get(problem)"> @problem.name </a></li>
+} 
+</ul>
