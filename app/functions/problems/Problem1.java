@@ -6,7 +6,7 @@ import functions.Array;
 import java.lang.Class;
 import java.lang.reflect.Field;
 
-public class Problem1 implements ProblemsInterface {
+public class Problem1 implements Problem {
 	public int parameter1;
 	public int parameter2;
 	public int upperBound;

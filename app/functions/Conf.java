@@ -2,8 +2,11 @@ package functions;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import play.api.Application;
+import play.api.Play;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,8 +30,9 @@ public class Conf {
 		ObjectMapper mapper = new ObjectMapper();
         
         try {
-        	// Read file
-            BufferedReader fileReader = new BufferedReader(new FileReader("/Development/EulerPlay/conf/problems.json"));
+        	// Read json file
+            File file = new File("conf/problems.json").getAbsoluteFile();
+            BufferedReader fileReader = new BufferedReader(new FileReader(file));
             // Get Jackson to read the JsonNodes
             JsonNode root = mapper.readTree(fileReader);
 

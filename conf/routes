@@ -3,7 +3,7 @@
 # ~~~~
 
 # Problem list
-GET     /problems                    controllers.Problem.showList()
+GET     /problems                    controllers.Problems.showList()
 
 # Problem 1
-GET     /problems/:id                controllers.Problem.show(id: Int)
+GET     /problems/:id                controllers.Problems.show(id: Int)

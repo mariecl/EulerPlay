@@ -2,13 +2,13 @@ package controllers;
 
 import functions.Conf;
 import functions.Problem_data;
+import functions.problems.Problem;
 
-import java.util.*;
-
-import functions.problems.ProblemsInterface;
 import play.mvc.*;
+import java.util.HashMap;
+import java.util.List;
 
-public class Problem extends Controller {
+public class Problems extends Controller {
 
     public static Result show(Integer id) throws NoSuchFieldException, IllegalAccessException {
         //Initializes variables returned by the method
@@ -16,11 +16,11 @@ public class Problem extends Controller {
         String question = "problem unavailable";
 
         //Dynamically instantiate problem depending on the requested id
-        ProblemsInterface problem;
+        Problem problem;
         String problemClassName = "functions.problems.Problem" + id.toString();
         try {
 
-            problem = (ProblemsInterface) Class.forName(problemClassName).newInstance();
+            problem = (Problem) Class.forName(problemClassName).newInstance();
 
             //Sets parameter values to that of the query string
             Conf conf = new Conf();

@@ -19,6 +19,7 @@ project/target
 project/plugins/target
 target
 .target
+.DS_Store
  
 # Play
 logs

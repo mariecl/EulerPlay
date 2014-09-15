@@ -2,14 +2,13 @@ package functions.problems;
 
 import functions.Array;
 import functions.Fibonacci;
-import functions.Multiples;
 
 import java.lang.reflect.Field;
 
 /**
  * Created by marieclemessy on 14/09/2014.
  */
-public class Problem2 implements ProblemsInterface {
+public class Problem2 implements Problem {
     public int upperBound;
 
     //Default constructor
