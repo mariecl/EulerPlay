@@ -1,54 +1,71 @@
 package controllers;
 
-import functions.Array;
-import functions.Multiples;
 import functions.Conf;
-import functions.Problem1;
+import functions.Problem_data;
 
-import java.io.IOException;
-import java.util.Set;
-import java.util.Map;
-import java.util.Arrays;
+import java.util.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
-
+import functions.problems.ProblemsInterface;
 import play.mvc.*;
-import play.Logger;
 
 public class Problem extends Controller {
 
-    public static Result show(Integer id) {
-        Problem1 pb1 = new Problem1();
-        Class pbClass = pb1.class;
+    public static Result show(Integer id) throws NoSuchFieldException, IllegalAccessException {
+        //Initializes variables returned by the method
+        Long answer = 0L;
+        String question = "problem unavailable";
 
-        
-        
-        
-        Field field = pbClass.getField(name);
-        field.set(pb1, value);
+        //Dynamically instantiate problem depending on the requested id
+        ProblemsInterface problem;
+        String problemClassName = "functions.problems.Problem" + id.toString();
+        try {
 
-        // Set question parameters using values found in query string
-        // To do: dynamically do the assignment
-        int parameter1 = Integer.parseInt(request().getQueryString("parameter1"));
-        int parameter2 = Integer.parseInt(request().getQueryString("parameter2"));
-        int upperBound = Integer.parseInt(request().getQueryString("upperBound"));
+            problem = (ProblemsInterface) Class.forName(problemClassName).newInstance();
 
-        int answertest = pb1.Compute();
+            //Sets parameter values to that of the query string
+            Conf conf = new Conf();
+            //Finds the problem data associated to the problem id
+            Problem_data problemId = Conf.getProblems().get(id - 1);
+            //Loops over each parameter recorded in JSON file
+            for (HashMap<String, Object> parameter: problemId.parameters) {
+                    problem.setParameterValue(parameter.get("name").toString(), Integer.parseInt(request().getQueryString(parameter.get("name").toString())));
+                }
 
-        String question = new String("If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of " + parameter1 + " or " + parameter2 + " below " + upperBound + ".");
+            //Computes the problem's answer with the given parameters
+            answer = problem.compute();
 
-        Multiples ans = new Multiples(upperBound);
+            // Gets question text from JSON file
+            String question1 = problemId.question;
+            for (HashMap<String, Object> parameter: problemId.parameters) {
+                String value = request().getQueryString(parameter.get("name").toString());
+                String toReplace = "%" + parameter.get("name").toString() + "%";
+                question1 = question1.replace(toReplace, value);
+            }
+            question = question1;
 
-        // Generates array of all numbers multiple of number 1 or number 2 which value is below upperBound
-        int[] multiplesOfNumber1 = ans.getMultiplesBelow(upperBound, parameter1);
-        int[] multiplesOfNumber2 = ans.getMultiplesBelow(upperBound, parameter2);
-        int[] multiplesOfBoth = Array.MergeTables(multiplesOfNumber1, multiplesOfNumber2);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        // Sums all the elements of multiplesOfBoth to get the answer to the question
-        int answer = Array.SumOfAllElements(multiplesOfBoth);
+        return ok(views.html.answer.render(question, answer));
+    }
 
-        return ok(views.html.answer.render(question, answertest));
+    public static Result showList () {
+        Conf conf = new Conf();
+        List<Problem_data> problems = Conf.getProblems();
+
+        HashMap<Problem_data, String> queryStrings = new HashMap<Problem_data, String>();
+        for (Problem_data problem: problems) {
+            String queryString = "?";
+            for (HashMap<String, Object> parameter: problem.parameters) {
+                queryString = queryString + parameter.get("name") + "=" + parameter.get("default") + "&";
+            }
+            queryStrings.put(problem, queryString);
+        }
+
+        return ok(views.html.problemlist.render(problems, queryStrings));
     }
 
 }

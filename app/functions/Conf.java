@@ -12,23 +12,23 @@ import java.util.List;
 import java.util.Iterator;
 
 public class Conf {
-    protected static List<Problem> problems;
+    protected static List<Problem_data> problems;
 
 	/**
 	* Reads the Json file and generates a List populated with problems
 	*/
-	public static List<Problem> getProblems() {
+	public static List<Problem_data> getProblems() {
 		if(Conf.problems != null) {
             return Conf.problems;
         }
 
 		// ArrayList that will hold problems and will be returned
-		Conf.problems = new ArrayList<Problem>();
+		Conf.problems = new ArrayList<Problem_data>();
 		ObjectMapper mapper = new ObjectMapper();
         
         try {
         	// Read file
-            BufferedReader fileReader = new BufferedReader(new FileReader("/Development/Marie/EulerPlay/conf/problems.json"));
+            BufferedReader fileReader = new BufferedReader(new FileReader("/Development/EulerPlay/conf/problems.json"));
             // Get Jackson to read the JsonNodes
             JsonNode root = mapper.readTree(fileReader);
 
@@ -57,7 +57,7 @@ public class Conf {
             	}
 
             	// Create new problem instance to represent problem from JSON
-            	Problem problem = new Problem(
+            	Problem_data problem = new Problem_data(
             		problemNode.get("id").asInt(),
             		problemNode.get("name").asText(),
             		problemNode.get("question").asText(),
