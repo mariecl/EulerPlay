@@ -1,16 +1,14 @@
-@(question: String, answer: Long)
+@(question: String, answer: Long, parameters: ArrayList[HashMap[String, Object]], id: Int)
 
         <body>@question <br><br><br>
         The answer is @answer.<br><br><br><br>
-        You can change the parameters of the question if you want:
-        </body>
+        You can change the parameters of the question if you want: <br><br>
 
-<form name="changeParameters" action="001" method="get">
-    <dt><label>Parameter 1 :</label></dt>
-    <dd><input type="text" name="parameter1" value=""></dd>
-    <dt><label>Parameter 2 :</label></dt>
-    <dd><input type="text" name="parameter2" value=""></dd>
-    <dt><label>Upper bound :</label></dt>
-    <dd><input type="text" name="upperBound" value=""></dd>
-    <dd><input type="submit" value="Submit"></dd>
-</form>
+        <form name="changeParameters" action="@id" method="get">
+            @for(parameter <- parameters) {
+            <dt><label>@parameter.get("proper name"):<br> <em>(ex: default is @parameter.get("default"))</em></label></dt>
+            <dd><input type="text" name="@parameter.get("name")" value=""></dd>
+            }
+            <dd><input type="submit" value="Submit"></dd>
+        </form>
+        </body>

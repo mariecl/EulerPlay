@@ -1,33 +1,28 @@
 package functions.problems;
 
-import functions.Multiples;
 import functions.Array;
+import functions.Multiples;
 import play.Logger;
 
-import java.lang.Class;
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
 
-public class Problem1 implements Problem {
-	public int parameter1;
-	public int parameter2;
-	public int upperBound;
+/**
+ * Created by marieclemessy on 15/09/2014.
+ */
+public class Problem3 implements Problem {
+    public long parameter1;
 
-	//Default constructor
-	public Problem1(){
-        int parameter1 = 0;
-        int parameter2 = 0;
-        int parameter3 = 0;
-	}
+    //Default constructor
+    public Problem3(){
+        long parameter1 = 0L;
+    }
 
-	//Constructor with parameters
-    public Problem1(int param1, int param2, int upperBd){
+    //Constructor with parameters
+    public Problem3(int param1){
         this.parameter1 = param1;
-        this.parameter2 = param2;
-        this.upperBound = upperBd;
     }
 
     //Gives values to the variables of the current problem instance using data from the query string
@@ -56,19 +51,10 @@ public class Problem1 implements Problem {
         }
     }
 
-	//Generates problem answer
-	public Long compute(){
-        Multiples ans = new Multiples(upperBound);
-
-        int[] multiplesOfParameter1 = ans.getMultiplesBelow(upperBound, parameter1);
-        int[] multiplesOfParameter2 = ans.getMultiplesBelow(upperBound, parameter2);
-        int[] multiplesOfBoth = Array.MergeTables(multiplesOfParameter1, multiplesOfParameter2);
-
-        long answer = Array.SumOfAllElements(multiplesOfBoth);
-
+    //Generates problem answer
+    public Long compute(){
+        Long answer = Multiples.getHighestPrimeFactor(this.parameter1);
         return answer;
-	}
-
-
+    }
 
 }

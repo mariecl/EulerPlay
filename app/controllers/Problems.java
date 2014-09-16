@@ -4,52 +4,52 @@ import functions.Conf;
 import functions.Problem_data;
 import functions.problems.Problem;
 
-import play.mvc.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import play.mvc.*;
 
 public class Problems extends Controller {
 
     public static Result show(Integer id) throws NoSuchFieldException, IllegalAccessException {
-        //Initializes variables returned by the method
-        Long answer = 0L;
-        String question = "problem unavailable";
-
-        //Dynamically instantiate problem depending on the requested id
-        Problem problem;
-        String problemClassName = "functions.problems.Problem" + id.toString();
         try {
-
+            //Dynamically instantiate problem depending on the requested id
+            Problem problem;
+            String problemClassName = "functions.problems.Problem" + id.toString();
             problem = (Problem) Class.forName(problemClassName).newInstance();
 
             //Sets parameter values to that of the query string
             Conf conf = new Conf();
+
             //Finds the problem data associated to the problem id
             Problem_data problemId = Conf.getProblems().get(id - 1);
-            //Loops over each parameter recorded in JSON file
-            for (HashMap<String, Object> parameter: problemId.parameters) {
-                    problem.setParameterValue(parameter.get("name").toString(), Integer.parseInt(request().getQueryString(parameter.get("name").toString())));
-                }
+
+            //Gets parameters (name and value) from the query string and gives it to the instance of the problem
+            final Set<Map.Entry<String,String[]>> entries = request().queryString().entrySet();
+            problem.setParametersValue(entries);
 
             //Computes the problem's answer with the given parameters
-            answer = problem.compute();
+            Long answer = problem.compute();
 
             // Gets question text from JSON file
-            String question1 = problemId.question;
+            String question = problemId.question;
+            // Replace parameter name with parameter value from query string to adapt the text of the question
             for (HashMap<String, Object> parameter: problemId.parameters) {
                 String value = request().getQueryString(parameter.get("name").toString());
                 String toReplace = "%" + parameter.get("name").toString() + "%";
-                question1 = question1.replace(toReplace, value);
+                question = question.replace(toReplace, value);
             }
-            question = question1;
+            return ok(views.html.answer.render(question, answer, problemId.parameters, id));
 
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return ok(views.html.error.render());
 
-        return ok(views.html.answer.render(question, answer));
     }
 
     public static Result showList () {

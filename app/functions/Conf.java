@@ -54,6 +54,7 @@ public class Conf {
             		// Create map holder
             		HashMap<String, Object> parameter = new HashMap<String, Object>();
             		parameter.put("name", parameterNode.get("name").asText());
+                    parameter.put("proper name", parameterNode.get("proper name").asText());
             		parameter.put("default",parameterNode.get("default").asLong());
 
             		// Add parameter to map
