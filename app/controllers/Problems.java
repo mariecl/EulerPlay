@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import functions.problems.Problem1;
+import play.data.Form;
 import play.mvc.*;
 
 public class Problems extends Controller {
@@ -41,6 +43,7 @@ public class Problems extends Controller {
                 String toReplace = "%" + parameter.get("name").toString() + "%";
                 question = question.replace(toReplace, value);
             }
+
             return ok(views.html.answer.render(question, answer, problemId.parameters, id));
 
         } catch (InstantiationException e) {

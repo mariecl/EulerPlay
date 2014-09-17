@@ -8,6 +8,7 @@
             @for(parameter <- parameters) {
             <dt><label>@parameter.get("proper name"):<br> <em>(ex: default is @parameter.get("default"))</em></label></dt>
             <dd><input type="text" name="@parameter.get("name")" value=""></dd>
+            <dd class="error">This field is required!</dd>
             }
             <dd><input type="submit" value="Submit"></dd>
         </form>
