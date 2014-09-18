@@ -20,6 +20,9 @@ project/plugins/target
 target
 .target
 .DS_Store
+
+# Intellij IDEA
+.idea
  
 # Play
 logs
