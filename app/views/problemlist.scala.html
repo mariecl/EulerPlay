@@ -1,10 +1,10 @@
-@(problems : List[functions.Problem], queryStrings : HashMap[functions.Problem, String])
+@(problems : List[models.Problems], queryStrings : HashMap[models.Problems, String])
 
 <h1>List of available problems:</h1>
 
 <ul>
 @for(problem <- problems) {
 
-  <li> <a href = "/problems/@problem.id@queryStrings.get(problem)"> @problem.name </a></li>
+  <li> <a href = "/problems/@problem.getProblemId()@queryStrings.get(problem)"> @problem.getProblemName() </a></li>
 } 
 </ul>

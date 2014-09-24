@@ -1,15 +1,15 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import functions.Conf;
 import functions.Problem_data;
 import functions.problems.Problem;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import functions.problems.Problem1;
+import models.Parameters;
+import play.Logger;
 import play.data.Form;
 import play.mvc.*;
 
@@ -22,7 +22,6 @@ public class Problems extends Controller {
             String problemClassName = "functions.problems.Problem" + id.toString();
             problem = (Problem) Class.forName(problemClassName).newInstance();
 
-            //Sets parameter values to that of the query string
             Conf conf = new Conf();
 
             //Finds the problem data associated to the problem id
@@ -56,18 +55,29 @@ public class Problems extends Controller {
     }
 
     public static Result showList () {
-        Conf conf = new Conf();
-        List<Problem_data> problems = Conf.getProblems();
+        // Get the list of all available problems from database
+        List<models.Problems> problems = models.Problems.find.all();
 
-        HashMap<Problem_data, String> queryStrings = new HashMap<Problem_data, String>();
-        for (Problem_data problem: problems) {
+        // Generate a holder for the problems and their query string
+        HashMap<models.Problems, String> queryStrings = new HashMap<models.Problems, String>();
+        // Loops over problems
+        for (models.Problems problem: problems) {
+            // Get all parameters with the same problemId as the problem in the iterator
+            List<models.Parameters> parameters = Ebean.find(models.Parameters.class)
+                    .where()
+                    .eq("problemId", problem.getProblemId())
+                    .findList();
             String queryString = "?";
-            for (HashMap<String, Object> parameter: problem.parameters) {
-                queryString = queryString + parameter.get("name") + "=" + parameter.get("default") + "&";
+            // Generates a query string with the default values of the problem
+            for (models.Parameters parameter: parameters) {
+                queryString = queryString
+                            + parameter.getParameterName()
+                            + "=" + parameter.getParameterDefaultValue()
+                            + "&";
             }
+            // Adds the problem and its associated query string in the holder queryStrings
             queryStrings.put(problem, queryString);
         }
-
         return ok(views.html.problemlist.render(problems, queryStrings));
     }
 
