@@ -1,49 +1,46 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import functions.Conf;
-import functions.Problem_data;
 import functions.problems.Problem;
 
 import java.util.*;
 
-import functions.problems.Problem1;
-import models.Parameters;
-import play.Logger;
-import play.data.Form;
 import play.mvc.*;
 
 public class Problems extends Controller {
 
     public static Result show(Integer id) throws NoSuchFieldException, IllegalAccessException {
         try {
-            //Dynamically instantiate problem depending on the requested id
+            // Dynamically instantiate problem depending on the requested id
             Problem problem;
             String problemClassName = "functions.problems.Problem" + id.toString();
             problem = (Problem) Class.forName(problemClassName).newInstance();
 
-            Conf conf = new Conf();
+            // Find the problem data associated to the problem id
+            models.Problems problemId = models.Problems.find.byId(Long.parseLong(id.toString()));
 
-            //Finds the problem data associated to the problem id
-            Problem_data problemId = Conf.getProblems().get(id - 1);
-
-            //Gets parameters (name and value) from the query string and gives it to the instance of the problem
+            // Retrieve parameters (name and value) from the query string and gives it to the instance of the problem
             final Set<Map.Entry<String,String[]>> entries = request().queryString().entrySet();
             problem.setParametersValue(entries);
 
-            //Computes the problem's answer with the given parameters
+            // Compute the problem's answer with the parameters from the query string
             Long answer = problem.compute();
 
-            // Gets question text from JSON file
-            String question = problemId.question;
+            // Retrieve question text from database
+            String question = problemId.getProblemQuestion();
+
+            // Retrieve from the database the list of parameters for the problem with the given id
+            List<models.Parameters> parameters = Ebean.find(models.Parameters.class)
+                    .where()
+                    .eq("problemId", problemId.getProblemId())
+                    .findList();
             // Replace parameter name with parameter value from query string to adapt the text of the question
-            for (HashMap<String, Object> parameter: problemId.parameters) {
-                String value = request().getQueryString(parameter.get("name").toString());
-                String toReplace = "%" + parameter.get("name").toString() + "%";
+            for (models.Parameters parameter: parameters) {
+                String value = request().getQueryString(parameter.getParameterName());
+                String toReplace = "%" + parameter.getParameterName() + "%";
                 question = question.replace(toReplace, value);
             }
-
-            return ok(views.html.answer.render(question, answer, problemId.parameters, id));
+            return ok(views.html.answer.render(question, answer, parameters, id));
 
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -60,7 +57,7 @@ public class Problems extends Controller {
 
         // Generate a holder for the problems and their query string
         HashMap<models.Problems, String> queryStrings = new HashMap<models.Problems, String>();
-        // Loops over problems
+        // Loop over problems
         for (models.Problems problem: problems) {
             // Get all parameters with the same problemId as the problem in the iterator
             List<models.Parameters> parameters = Ebean.find(models.Parameters.class)
@@ -75,7 +72,7 @@ public class Problems extends Controller {
                             + "=" + parameter.getParameterDefaultValue()
                             + "&";
             }
-            // Adds the problem and its associated query string in the holder queryStrings
+            // Add the problem and its associated query string in the holder queryStrings
             queryStrings.put(problem, queryString);
         }
         return ok(views.html.problemlist.render(problems, queryStrings));
