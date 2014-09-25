@@ -16,9 +16,6 @@ public class Problems extends Controller {
             String problemClassName = "functions.problems.Problem" + id.toString();
             problem = (Problem) Class.forName(problemClassName).newInstance();
 
-            // Find the problem data associated to the problem id
-            models.Problems problemId = models.Problems.find.byId(Long.parseLong(id.toString()));
-
             // Retrieve parameters (name and value) from the query string and gives it to the instance of the problem
             final Set<Map.Entry<String,String[]>> entries = request().queryString().entrySet();
             problem.setParametersValue(entries);
@@ -26,15 +23,15 @@ public class Problems extends Controller {
             // Compute the problem's answer with the parameters from the query string
             Long answer = problem.compute();
 
+            // Find the problem data associated to the problem id
+            models.Problems problemId = models.Problems.find.byId(Long.parseLong(id.toString()));
+
             // Retrieve question text from database
             String question = problemId.getProblemQuestion();
 
-            // Retrieve from the database the list of parameters for the problem with the given id
-            List<models.Parameters> parameters = Ebean.find(models.Parameters.class)
-                    .where()
-                    .eq("problemId", problemId.getProblemId())
-                    .findList();
-            // Replace parameter name with parameter value from query string to adapt the text of the question
+            // Retrieve the list of parameters for the problem with the given id from the database
+            List<models.Parameters> parameters = problemId.getParameters();
+            // Replace the parameter name with parameter value from query string to adapt the text of the question
             for (models.Parameters parameter: parameters) {
                 String value = request().getQueryString(parameter.getParameterName());
                 String toReplace = "%" + parameter.getParameterName() + "%";
@@ -59,11 +56,8 @@ public class Problems extends Controller {
         HashMap<models.Problems, String> queryStrings = new HashMap<models.Problems, String>();
         // Loop over problems
         for (models.Problems problem: problems) {
-            // Get all parameters with the same problemId as the problem in the iterator
-            List<models.Parameters> parameters = Ebean.find(models.Parameters.class)
-                    .where()
-                    .eq("problemId", problem.getProblemId())
-                    .findList();
+            // Retrieve the list of parameters for the problem with the given id from the database
+            List<models.Parameters> parameters = problem.getParameters();
             String queryString = "?";
             // Generates a query string with the default values of the problem
             for (models.Parameters parameter: parameters) {

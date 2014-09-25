@@ -22,6 +22,10 @@ public class Problems extends Model {
     @Column(name = "problemQuestion", nullable = false)
     private String problemQuestion;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "ProblemParameters", joinColumns = @JoinColumn(name = "problemId", referencedColumnName = "problemId"))
+    private List<models.Parameters> parameters;
+
     public Problems() {
     }
 
@@ -39,6 +43,10 @@ public class Problems extends Model {
 
     public String getProblemQuestion() {
         return this.problemQuestion;
+    }
+
+    public List<models.Parameters> getParameters(){
+        return this.parameters;
     }
 
 }
