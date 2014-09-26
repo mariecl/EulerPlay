@@ -1,10 +1,11 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import functions.problems.Problem;
 
 import java.util.*;
 
+import models.Parameters;
+import play.data.Form;
 import play.mvc.*;
 
 public class Problems extends Controller {
@@ -72,4 +73,18 @@ public class Problems extends Controller {
         return ok(views.html.problemlist.render(problems, queryStrings));
     }
 
+    public static Result addNew() {
+        Form<models.Problems> problemsForm = Form.form(models.Problems.class);
+
+        models.Problems newProblem = problemsForm.bindFromRequest().get();
+
+        return ok(views.html.addProblem.render(problemsForm));
+    }
+
+    public static Result submit() {
+        Form<models.Problems> problemsForm = Form.form(models.Problems.class);
+        models.Problems newProblem = problemsForm.bindFromRequest().get();
+
+        return ok ("C'est noté");
+    }
 }

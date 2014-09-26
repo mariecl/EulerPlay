@@ -7,3 +7,6 @@ GET     /problems                    controllers.Problems.showList()
 
 # Problem 1
 GET     /problems/:id                controllers.Problems.show(id: Int)
+
+# Add a new problem
+GET    /new                         controllers.Problems.addNew()
