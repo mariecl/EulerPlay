@@ -46,7 +46,6 @@ public class Problems extends Controller {
             e.printStackTrace();
         }
         return ok(views.html.notFoundPage.render(request().uri()));
-
     }
 
     public static Result showList () {
@@ -74,6 +73,7 @@ public class Problems extends Controller {
     }
 
     public static Result addNew() {
+
         return ok(views.html.addProblem.render("Please fill in this form to add a new problem to the database"));
     }
 

@@ -36,7 +36,7 @@ public class Parameters {
     );
 
     public int getProblemId() {
-        return this.parameterId;
+        return this.problemId;
     }
 
     public String getParameterName() {

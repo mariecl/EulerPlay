@@ -15,3 +15,4 @@ POST    /new                         controllers.Problems.submit()
 # Delete a problem
 GET     /delete                      controllers.Problems.showListDelete()
 POST    /delete                      controllers.Problems.delete()
+
