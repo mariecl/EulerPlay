@@ -1,0 +1,17 @@
+@(question: String, answer: Long, parameters: List[models.Parameters], id: Int)
+
+        <body>@question <br><br><br>
+        The answer is @answer.<br><br><br><br>
+        You can change the parameters of the question if you want: <br><br>
+
+        <form name="changeParameters" action="@id" method="get">
+            @for(parameter <- parameters) {
+            <dt><label>@parameter.getProperName():<br> <em>(ex: default is @parameter.getParameterDefaultValue</em></label></dt>
+            <dd><input type="number" name="@parameter.getParameterName()" required value="@parameter.getParameterDefaultValue()"></dd>
+            }
+            <dd><input type="submit" value="Submit"></dd>
+        </form>
+
+        <button onclick="location.href='problems'"> Back to problem list</button>
+
+        </body>

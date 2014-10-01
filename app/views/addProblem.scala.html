@@ -1,0 +1,36 @@
+@(text: String)
+
+@import models.Problems
+
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<h2>@text</h2>
+<form name="addProblem" action=/new method="post">
+    <fieldset>
+        <legend>Problem information:</legend>
+        Problem name:<br> <em>(ex: Problem 4)</em>
+        <dd><input type="text" name="problemName" required value="Problem 4"></dd>
+        Problem question:<br> <em>(ex: How much is 2 plus 1?)</em>
+        <dd><input type="text" name="problemQuestion" required value="How much is 2 plus 1?"></dd>
+    </fieldset>
+    <fieldset>
+        <legend>Parameter 1:</legend>
+        <dt><label>Parameter name:<br> <em>(computer readable)</em></label></dt>
+        <dd><input type="text" name="parameterName_1" required value=Test></dd>
+        <dt><label>Proper parameter name:<br> <em>(human readable)</em></label></dt>
+        <dd><input type="text" name="parameterProperName_1" required value=Test></dd>
+        <dt><label>Default value:<br> <em>(ex: 4)</em></label></dt>
+        <dd><input type="number" name="parameterDefaultValue_1" required value=4></dd>
+    </fieldset>
+    <dd><input type="submit" value="Submit"></dd>
+</form>
+</p>
+</body>
+</html>

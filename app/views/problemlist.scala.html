@@ -1,0 +1,21 @@
+@(problems : List[models.Problems], queryStrings : HashMap[models.Problems, String])
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Problem List</title>
+</head>
+
+<body>
+<h1>List of available problems:</h1>
+
+<ul>
+    @for(problem <- problems) {
+
+    <li> <a href = "/problems/@problem.getProblemId()@queryStrings.get(problem)"> @problem.getProblemName() </a></li>
+    }
+</ul>
+
+<button onclick="location.href='new'"> Add a new problem</button>
+<button onclick="location.href='delete'"> Delete an existing problem</button>
+
+</body>
