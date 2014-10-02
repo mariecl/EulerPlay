@@ -2,6 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Home Page
+GET     /                            controllers.Problems.homePage()
+
 # Problem list
 GET     /problems                    controllers.Problems.showList()
 
@@ -15,4 +18,7 @@ POST    /new                         controllers.Problems.submit()
 # Delete a problem
 GET     /delete                      controllers.Problems.showListDelete()
 POST    /delete                      controllers.Problems.delete()
+
+# Assets
+GET     /assets/*file                controllers.Assets.at(path="/public", file)
 

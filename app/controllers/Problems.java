@@ -132,4 +132,8 @@ public class Problems extends Controller {
         }
         return ok(views.html.requestSuccess.render(text));
     }
+
+    public static Result homePage() {
+        return ok(views.html.index.render());
+    }
 }

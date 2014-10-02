@@ -1,7 +1,0 @@
-[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/Development/EulerPlay/conf/application.conf,/Development/EulerPlay/target/scala-2.11/classes/application.conf)[0m
-[0m[[0mdebug[0m] [0m	(/Development/EulerPlay/conf/evolutions,/Development/EulerPlay/target/scala-2.11/classes/evolutions)[0m
-[0m[[0mdebug[0m] [0m	(/Development/EulerPlay/conf/problemsdb.sql,/Development/EulerPlay/target/scala-2.11/classes/problemsdb.sql)[0m
-[0m[[0mdebug[0m] [0m	(/Development/EulerPlay/conf/routes,/Development/EulerPlay/target/scala-2.11/classes/routes)[0m
-[0m[[0mdebug[0m] [0m	(/Development/EulerPlay/conf/evolutions/default,/Development/EulerPlay/target/scala-2.11/classes/evolutions/default)[0m
-[0m[[0mdebug[0m] [0m	(/Development/EulerPlay/conf/evolutions/default/1.sql,/Development/EulerPlay/target/scala-2.11/classes/evolutions/default/1.sql)[0m
