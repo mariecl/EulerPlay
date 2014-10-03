@@ -17,6 +17,7 @@ dist
 project/boot
 project/target
 project/plugins/target
+project/target/streams
 target
 .target
 .DS_Store

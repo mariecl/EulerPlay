@@ -1,17 +1,130 @@
 @(question: String, answer: Long, parameters: List[models.Parameters], id: Int)
 
-        <body>@question <br><br><br>
-        The answer is @answer.<br><br><br><br>
-        You can change the parameters of the question if you want: <br><br>
+<!DOCTYPE html>
+<html lang="en">
 
-        <form name="changeParameters" action="@id" method="get">
-            @for(parameter <- parameters) {
-            <dt><label>@parameter.getProperName():<br> <em>(ex: default is @parameter.getParameterDefaultValue</em></label></dt>
-            <dd><input type="number" name="@parameter.getParameterName()" required value="@parameter.getParameterDefaultValue()"></dd>
-            }
-            <dd><input type="submit" value="Submit"></dd>
-        </form>
+<head>
 
-        <button onclick="location.href='problems'"> Back to problem list</button>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        </body>
+    <title>Answer for Problem @id</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets/stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/assets/stylesheets/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/assets/stylesheets/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/assets/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            @views.html._navbar_header()
+            @views.html._top_menu_items()
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="/"><i class="fa fa-fw fa-dashboard"></i> Home</a>
+                </li>
+                <li class="active">
+                    <a href="/problems"><i class="fa fa-fw fa-bar-chart-o"></i> Problem list</a>
+                </li>
+                <li>
+                    <a href="/new"><i class="fa fa-fw fa-table"></i> Add new problem</a>
+                </li>
+                <li>
+                    <a href="/delete"><i class="fa fa-fw fa-edit"></i> Delete existing problem</a>
+                </li>
+            </ul>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Answer to problem @id
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="index.html">Home</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-edit"></i> Problem list
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                <div class="col-lg-6">
+
+                    <div class="well">
+                        <em>Question:</em> <br>
+                        @question <br><br>
+                        The answer is <strong>@answer</strong>. <br><br>
+                        <button class="btn btn-sm btn-link" onclick="location.href='problems'"> Back to problem list</button>
+                    </div>
+
+                    <p> Alternatively, you can change the parameters of the question using the following form: <br><br> </p>
+
+                    <form role="form" name="changeParameters" action="@id" method="get">
+                        @for(parameter <- parameters) {
+                            <div class="form-group">
+                                <label>@parameter.getProperName():</label>
+                                <input class="form-control" placeholder="Enter text" type="number" name="@parameter.getParameterName()" required value="@parameter.getParameterDefaultValue()">
+                                <p class="help-block">Ex: default value is @parameter.getParameterDefaultValue.</p>
+                            </div>
+                        }
+                        <button type="submit" class="btn btn btn-primary" value="Submit">Submit</button>
+                        <button type="reset" class="btn btn btn-default">Reset</button>
+                        <!-- /.row -->
+                    </form>
+                </div>
+                <!-- /.row -->
+
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="/assets/javascripts/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/javascripts/bootstrap.min.js"></script>
+
+</body>
+
+</html>
