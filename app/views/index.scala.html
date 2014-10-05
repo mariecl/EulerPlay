@@ -1,3 +1,5 @@
+@(problemsNb: Integer, deleteNb: Integer)
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,7 +74,7 @@
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">3</div>
+                                        <div class="huge">@problemsNb</div>
                                         <div>Problems available!</div>
                                     </div>
                                 </div>
@@ -116,7 +118,7 @@
                                         <i class="fa fa-support fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">0</div>
+                                        <div class="huge">@deleteNb</div>
                                         <div>Problems available for deletion</div>
                                     </div>
                                 </div>

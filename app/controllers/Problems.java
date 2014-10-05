@@ -134,6 +134,10 @@ public class Problems extends Controller {
     }
 
     public static Result homePage() {
-        return ok(views.html.index.render());
+        // Get the list of all available problems from database
+        List<models.Problems> problems = models.Problems.find.all();
+        Integer problemsNb = problems.size();
+        Integer deleteNb = problemsNb - 3;
+        return ok(views.html.index.render(problemsNb, deleteNb));
     }
 }
