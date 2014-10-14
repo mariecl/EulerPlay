@@ -86,17 +86,21 @@ public class Problems extends Controller {
         newProblem.setProblemName(values.get("problemName")[0]);
         newProblem.setProblemQuestion(values.get("problemQuestion")[0]);
 
-        // Prepare a new parameter using the request data
-        models.Parameters newParameter = new models.Parameters();
-        newParameter.setParameterName(values.get("parameterName_1")[0]);
-        newParameter.setProperName(values.get("parameterProperName_1")[0]);
-        newParameter.setParameterDefaultValue(Long.parseLong(values.get("parameterDefaultValue_1")[0]));
-
-        // Add parameter to the problem's parameter list
+        // Generate the list of parameters information from the request data
         List<models.Parameters> parametersList = new ArrayList<models.Parameters>();
-        parametersList.add(newParameter);
-        newProblem.setParameters(parametersList);
+        // Each request holds 2 fields for the problem info, and 3 fields for each submitted parameter
+        int parametersNb = (values.size() - 2) / 3;
+        // Loops over each submitted set of parameters
+        for (int i = 1; i < parametersNb + 1; i++) {
+            models.Parameters newParameter = new models.Parameters();
+            newParameter.setParameterName(values.get("parameterName_" + i)[0]);
+            newParameter.setProperName(values.get("parameterProperName_" + i)[0]);
+            newParameter.setParameterDefaultValue(Long.parseLong(values.get("parameterDefaultValue_" + i)[0]));
+            parametersList.add(newParameter);
+        }
 
+        // Add parameter set as problem's parameter list
+        newProblem.setParameters(parametersList);
         // Save problem to the database
         newProblem.save();
         return ok(views.html.requestSuccess.render("Problem successfully added to the database"));
