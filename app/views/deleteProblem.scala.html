@@ -1,4 +1,4 @@
-@(problems : List[models.Problems])
+@(problems: List[models.Problems], text: String)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,9 +18,6 @@
 
     <!-- Custom CSS -->
     <link href="/assets/stylesheets/sb-admin.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="/assets/stylesheets/plugins/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="/assets/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -80,12 +77,14 @@
                 </div>
                 <!-- /.row -->
 
-                <!-- Flot Charts -->
+                <div class="well">
+                    <p>@text</p>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-6">
                         <form role="form" name="deleteProblem" action="/delete" method="post">
 
-                            <label>Checkboxes</label>
                             @for(problem <- problems) {
 
                                 <div class="checkbox">
@@ -118,18 +117,8 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="/assets/javascripts/bootstrap.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="/assets/javascripts/plugins/morris/raphael.min.js"></script>
-    <script src="/assets/javascripts/plugins/morris/morris.min.js"></script>
-    <script src="/assets/javascripts/plugins/morris/morris-data.js"></script>
-
-    <!-- Flot Charts JavaScript -->
-    <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
-    <script src="/assets/javascripts/plugins/flot/jquery.flot.js"></script>
-    <script src="/assets/javascripts/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="/assets/javascripts/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="/assets/javascripts/plugins/flot/jquery.flot.pie.js"></script>
-    <script src="/assets/javascripts/plugins/flot/flot-data.js"></script>
+    <!-- Post form as an ajax request -->
+    <script src="/assets/javascripts/postForm.js"></script>
 
     </body>
 </html>

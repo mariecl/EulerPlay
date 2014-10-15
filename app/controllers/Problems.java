@@ -1,11 +1,14 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import functions.problems.Problem;
 
 import java.util.*;
 
 import models.Parameters;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.*;
 
 public class Problems extends Controller {
@@ -103,7 +106,8 @@ public class Problems extends Controller {
         newProblem.setParameters(parametersList);
         // Save problem to the database
         newProblem.save();
-        return ok(views.html.requestSuccess.render("Problem successfully added to the database"));
+
+        return ok("Problem successfully added to the database.");
     }
 
     public static Result showListDelete() {
@@ -116,7 +120,9 @@ public class Problems extends Controller {
                 problems.remove(models.Problems.find.byId(i));
             }
         }
-        return ok(views.html.deleteProblem.render(problems));
+
+        String text = "Use the checkboxes to select the problems you would like to delete from the database.";
+        return ok(views.html.deleteProblem.render(problems, text));
     }
 
     public static Result delete() {
@@ -134,7 +140,7 @@ public class Problems extends Controller {
         } else {
             text = "Problems successfully removed.";
         }
-        return ok(views.html.requestSuccess.render(text));
+        return ok("Problem(s) successfully deleted from the database.");
     }
 
     public static Result homePage() {
