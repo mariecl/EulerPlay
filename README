@@ -1,4 +1,22 @@
 EulerPlay
 =================================
 
-This application allows you to get the results to the Euler Problem questions.
+This application allows the user to play around with the Euler problems.
+
+###How do I get set up###
+* Download the repository
+* Launch the application with Activator using the command "activator run"
+* The application will be displayed at http://localhost:9000/
+
+###What can I do in the application###
+* See the list of available problems
+* See the answer to a problem which already has an answer, then change the parameters of the problem
+* Add a new problem to the database (the application will only register your problem, not solve it)
+* Delete a problem from the database (except those which have been solved)
+
+###What are the Euler Problems###
+* The Euler Problems are a series of mathematical problems that people can try to solve programmatically.
+* More details regarding the Euler Project can be found [here](https://projecteuler.net/).
+
+###Who do I get in touch with###
+* [Marie Clemessy](www.linkedin.com/pub/marie-clemessy/25/875/532/en)
