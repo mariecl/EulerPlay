@@ -20,12 +20,14 @@ $(document).ready(function(){
             timeout: 3000,
             async: false,
             success: function(response) {
-                form.parent().parent().parent().find(".well p").replaceWith("<p>" + response + "</p>");
-                form.parent().parent().detach();
+                // Changes the text at the top of the page to the AJAX response
+                $("#pageMessage").text(response);
+                // Removes form and its style holders
+                $("#formHolder").detach();
             },
             error: function(response) {
                 alert("PHPNEW Error");
             }
-        })
-    })
-})
+        });
+    });
+});
