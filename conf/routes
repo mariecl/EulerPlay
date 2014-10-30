@@ -8,7 +8,7 @@ GET     /                            controllers.Problems.homePage()
 # Problem list
 GET     /problems                    controllers.Problems.showList()
 
-# Problem 1
+# Problem with id
 GET     /problems/:id                controllers.Problems.show(id: Int)
 
 # Add a new problem
@@ -22,3 +22,5 @@ POST    /delete                      controllers.Problems.delete()
 # Assets
 GET     /assets/*file                controllers.Assets.at(path="/public", file)
 
+# Test
+GET		/test						 controllers.Problems.test()

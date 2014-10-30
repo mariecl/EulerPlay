@@ -13,3 +13,5 @@ libraryDependencies ++= Seq(
   javaWs,
   "org.xerial" % "sqlite-jdbc" % "3.7.15-M1"
 )
+
+libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.27"

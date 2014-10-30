@@ -2,6 +2,9 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.EbeanServer;
+
 import functions.problems.Problem;
 
 import java.util.*;
@@ -104,8 +107,13 @@ public class Problems extends Controller {
 
         // Add parameter set as problem's parameter list
         newProblem.setParameters(parametersList);
+        
+        // Get access to the Human Resources EbeanServer/Database
+        EbeanServer database = Ebean.getServer("sharedDB");
+        database.save(newProblem);
+
         // Save problem to the database
-        newProblem.save();
+        //newProblem.save();
 
         return ok("Problem successfully added to the database.");
     }
@@ -126,10 +134,12 @@ public class Problems extends Controller {
     }
 
     public static Result delete() {
+        // Get access to the Human Resources EbeanServer/Database
+        EbeanServer database = Ebean.getServer("sharedDB");
         // Retrieves the list of problems to delete from the form filled in by the user
         Map<String, String[]> values = request().body().asFormUrlEncoded();
         // Deletes each problem which checkbox was checked by the user
-        values.forEach((k, v) -> models.Problems.find.byId(Long.parseLong(k)).delete());
+        values.forEach((k, v) -> database.delete(models.Problems.find.byId(Long.parseLong(k))));
 
         // Displays a different text depending on the number of problems the user wants to delete
         String text = new String();
@@ -149,5 +159,9 @@ public class Problems extends Controller {
         Integer problemsNb = problems.size();
         Integer deleteNb = problemsNb - 3;
         return ok(views.html.index.render(problemsNb, deleteNb));
+    }
+
+    public static Result test() {
+        return ok(views.html.test.render());
     }
 }

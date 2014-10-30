@@ -20,6 +20,8 @@ project/plugins/target
 project/target/streams
 target
 .target
+
+#OSX
 .DS_Store
 
 # Intellij IDEA

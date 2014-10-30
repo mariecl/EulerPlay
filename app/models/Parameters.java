@@ -16,8 +16,8 @@ public class Parameters {
     @Column(name = "parameterId", nullable = false)
     private int parameterId;
 
-    @Column(name = "problemId", nullable = false)
-    private int problemId;
+    //@Column(name = "linkedProblemId", nullable = false)
+    //private int linkedProblemId;
 
     @Column(name = "parameterName", nullable = false)
     private String parameterName;
@@ -32,12 +32,12 @@ public class Parameters {
     }
 
     public static Model.Finder<Long,Parameters> find = new Model.Finder<Long,Parameters>(
-            Long.class, Parameters.class
+            "sharedDB", Long.class, Parameters.class
     );
 
-    public int getProblemId() {
-        return this.problemId;
-    }
+    //public int getLinkedProblemId() {
+    //    return this.linkedProblemId;
+    //}
 
     public String getParameterName() {
         return this.parameterName;
