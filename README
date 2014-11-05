@@ -2,6 +2,7 @@ EulerPlay
 =================================
 
 This application allows the user to play around with the Euler problems.
+EulerPlay was built using the Play Framework.
 
 ###How do I get set up###
 * Download the repository
