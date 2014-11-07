@@ -84,6 +84,7 @@ public class Problems extends Controller {
     }
 
     public static Result submit() {
+        /*
         // Retrieve data from the request body
         Map<String, String[]> values = request().body().asFormUrlEncoded();
 
@@ -114,8 +115,9 @@ public class Problems extends Controller {
 
         // Save problem to the database
         //newProblem.save();
+        */
 
-        return ok("Problem successfully added to the database.");
+        return ok("123");
     }
 
     public static Result showListDelete() {

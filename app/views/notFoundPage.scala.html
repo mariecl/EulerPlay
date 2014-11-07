@@ -1,15 +1,8 @@
 @(request: String)
 
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-Page not found <br>
-@request <br> <br>
+@main(title = "EulerPlay", sidebar = views.html.sidebar(""), breadcrumbs = views.html.breadcrumbs()) {
+	Page not found <br>
+	@request <br> <br>
 
-<a href = "/problems"> Back to problem list </a>
-</body>
-</html>
+	<a href = "/problems"> Back to problem list </a>
+}

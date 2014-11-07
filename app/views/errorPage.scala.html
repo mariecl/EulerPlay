@@ -1,13 +1,7 @@
 @(t: Throwable)
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Error</title>
-</head>
-<body>
-404 Page not found <br>
-@t <br> <br>
-<a href = "/problems"> Back to problem list </a>
-</body>
-</html>
+
+@main(title = "Error", sidebar = views.html.sidebar(""), breadcrumbs = views.html.breadcrumbs()) {
+	404 Page not found <br>
+	@t <br> <br>
+	<a href = "/problems"> Back to problem list </a>
+}

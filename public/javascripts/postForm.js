@@ -1,10 +1,10 @@
 $(document).ready(function(){
-    $("form").on("submit testphp", function(e) {
+    $("form").on("click", ".phpPost", function(e) {
         // Stop form from submitting normally
         e.preventDefault();
 
         // Eliminate duplication of DOM lookup
-        var form = $(this);
+        var form = $(this).closest("form");
 
         // Stores the form data in HTML format
         var formData = form.serialize();
@@ -26,7 +26,7 @@ $(document).ready(function(){
                 $("#formHolder").detach();
             },
             error: function(response) {
-                alert("PHPNEW Error");
+                alert("Error with the PHP response handler.");
             }
         });
     });

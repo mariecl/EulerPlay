@@ -1,158 +1,58 @@
 @(text: String)
 
-<!DOCTYPE html>
-<html lang="en">
+@main(title = "Add a new problem", sidebar = views.html.sidebar("add"), breadcrumbs = views.html.breadcrumbs()) {
 
-<head>
+<div class="well">
+    <p id="pageMessage">@text.</p>
+</div>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Add a new problem</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="/assets/stylesheets/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="/assets/stylesheets/sb-admin.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/assets/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            @views.html._navbar_header()
-            @views.html._top_menu_items()
-            <ul class="nav navbar-nav side-nav">
-                <li>
-                    <a href="/"><i class="fa fa-fw fa-dashboard"></i> Home</a>
-                </li>
-                <li>
-                    <a href="/problems"><i class="fa fa-fw fa-bar-chart-o"></i> Problem list</a>
-                </li>
-                <li class="active">
-                    <a href="/new"><i class="fa fa-fw fa-table"></i> Add new problem</a>
-                </li>
-                <li>
-                    <a href="/delete"><i class="fa fa-fw fa-edit"></i> Delete existing problem</a>
-                </li>
-            </ul>
-            <!-- /.navbar-collapse -->
-        </nav>
-
-        <div id="page-wrapper">
-
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Add a new problem
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Home</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-edit"></i> Add problem
-                            </li>
-                        </ol>
-                    </div>
+<div class="row" id="formHolder">
+    <div class="col-lg-6">
+        <form role="form" name="addProblem" action=/new method="post">
+            <fieldset>
+                <legend>Problem details</legend>
+                <div class="form-group">
+                    <label>Problem name</label>
+                    <input class="form-control" type="text" name="problemName" required placeholder="Enter text">
+                    <p class="help-block">Example: Problem 4 </p>
                 </div>
-                <!-- /.row -->
+                <div class="form-group">
+                    <label>Problem question</label>
+                    <input class="form-control" type="text" name="problemQuestion" required placeholder="Enter text">
+                    <p class="help-block">Example: How much is 2 plus 1?</p>
+                </div>
+            </fieldset>
 
-                <div class="well">
-                    <p id="pageMessage">@text.</p>
+            <fieldset>
+                <legend>Parameter 1</legend>
+
+                <div class="form-group">
+                    <label>Parameter name</label>
+                    <input class="form-control" type="text" name="parameterName_1" required placeholder="Enter text">
+                    <p class="help-block">Needs to be computer readable.</p>
                 </div>
 
-                <div class="row" id="formHolder">
-                    <div class="col-lg-6">
-                        <form role="form" name="addProblem" action=/new method="post">
-                            <fieldset>
-                                <legend>Problem details</legend>
-                                <div class="form-group">
-                                    <label>Problem name</label>
-                                    <input class="form-control" type="text" name="problemName" required placeholder="Enter text">
-                                    <p class="help-block">Example: Problem 4 </p>
-                                </div>
-                                <div class="form-group">
-                                    <label>Problem question</label>
-                                    <input class="form-control" type="text" name="problemQuestion" required placeholder="Enter text">
-                                    <p class="help-block">Example: How much is 2 plus 1?</p>
-                                </div>
-                            </fieldset>
-
-                            <fieldset>
-                                <legend>Parameter 1</legend>
-
-                                <div class="form-group">
-                                    <label>Parameter name</label>
-                                    <input class="form-control" type="text" name="parameterName_1" required placeholder="Enter text">
-                                    <p class="help-block">Needs to be computer readable.</p>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Proper parameter name</label>
-                                    <input class="form-control" type="text" name="parameterProperName_1" required placeholder="Enter text">
-                                    <p class="help-block">Needs to be human readable.</p>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Default value</label>
-                                    <input class="form-control" type="number" name="parameterDefaultValue_1" required placeholder="Enter value">
-                                    <p class="help-block">Enter the default value for the parameter. The default value is used when the problem is first loaded.</p>
-                                </div>
-                            </fieldset>
-
-                            <p>
-                                <button type="button" class="btn btn-sm btn-default add_button">Add a new parameter</button>
-                            </p>
-
-                            <p>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </p>
-                        </form>
-                    </div>
+                <div class="form-group">
+                    <label>Proper parameter name</label>
+                    <input class="form-control" type="text" name="parameterProperName_1" required placeholder="Enter text">
+                    <p class="help-block">Needs to be human readable.</p>
                 </div>
 
+                <div class="form-group">
+                    <label>Default value</label>
+                    <input class="form-control" type="number" name="parameterDefaultValue_1" required placeholder="Enter value">
+                    <p class="help-block">Enter the default value for the parameter. The default value is used when the problem is first loaded.</p>
+                </div>
+            </fieldset>
 
-            </div>
-            <!-- /.container-fluid -->
+            <p>
+                <button type="button" class="btn btn-sm btn-default add_button">Add a new parameter</button>
+            </p>
 
-        </div>
-        <!-- /#page-wrapper -->
-
+            <p>
+                <button type="submit" class="btn btn-primary phpPost">Submit</button>
+            </p>
+        </form>
     </div>
-<!-- /#wrapper -->
-
-<!-- jQuery Version 1.11.0 -->
-<script src="/assets/javascripts/jquery-1.11.0.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/assets/javascripts/bootstrap.min.js"></script>
-
-<!-- Dynamically add parameter JavaScript -->
-<script src="/assets/javascripts/addParameter.js"></script>
-
-<!-- Post form as an AJAX request -->
-<script src="/assets/javascripts/postForm.js"></script>
-
-
-</html>
+</div>
+}
