@@ -21,6 +21,3 @@ POST    /delete                      controllers.Problems.delete()
 
 # Assets
 GET     /assets/*file                controllers.Assets.at(path="/public", file)
-
-# Test
-GET		/test						 controllers.Problems.test()

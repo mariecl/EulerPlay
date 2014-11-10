@@ -2,14 +2,15 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
 
 import functions.problems.Problem;
+import models.Parameters;
 
 import java.util.*;
 
-import models.Parameters;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.*;
@@ -75,7 +76,7 @@ public class Problems extends Controller {
             // Add the problem and its associated query string in the holder queryStrings
             queryStrings.put(problem, queryString);
         }
-        return ok(views.html.problemlist.render(problems, queryStrings));
+        return ok(views.html.problemList.render(queryStrings));
     }
 
     public static Result addNew() {
@@ -163,7 +164,4 @@ public class Problems extends Controller {
         return ok(views.html.index.render(problemsNb, deleteNb));
     }
 
-    public static Result test() {
-        return ok(views.html.test.render());
-    }
 }
