@@ -1,7 +1,7 @@
 @(question: String, answer: Long, parameters: List[models.Parameters], id: Int)
 @import java.lang.String;
 
-@main(title = "Answer to Problem " + id, sidebar = views.html.sidebar("list"), breadcrumbs = views.html.breadcrumbs()) {
+@main(title = "Answer to Problem " + id, sidebar = views.html.sidebar(), breadcrumbs = views.html.breadcrumbs()) {
 
     <div class="row">
         <div class="col-lg-6">

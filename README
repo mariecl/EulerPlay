@@ -6,6 +6,7 @@ EulerPlay was built using the Play Framework.
 
 ###How do I get set up###
 * Download the repository
+* Download the [EulerPlayPHP repository](https://bitbucket.org/marieclemessy/eulerplayphp) and follow the set up instructions on the downoload page
 * Launch the application with Activator using the command "activator run"
 * The application will be displayed at http://localhost:9000/
 

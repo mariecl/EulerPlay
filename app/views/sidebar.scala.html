@@ -1,24 +1,19 @@
-@(section: String)
-
-<!-- Adapted from http://workwithplay.com/blog/2013/07/17/layout-composition/ -->
-@menuItems = @{Seq(
-    ("home", "Home", "fa fa-fw fa-dashboard", "/"),
-    ("list", "Problem list", "fa fa-fw fa-bar-chart-o", "/problems"),
-    ("add", "Add new problem", "fa fa-fw fa-table", "/new" ),
-    ("delete", "Delete existing problem", "fa fa-fw fa-edit", "/delete")
-)}
-
 <ul class="nav navbar-nav side-nav">
-   @menuItems.map {
-       case (key, title, logo, _) if key == section => {
-           <li class="active">
-                <a href="#"><i class="@logo"></i>@title</a>
-           </li>
-       }
-       case (key, title, logo, url) => {
-            <li>
-                <a href="@url"><i class="@logo"></i>@title</a>
-            </li>
-       }
-   }
+   
+  <li>
+      <a href="/"><i class="fa fa-fw fa-dashboard"></i>Home</a>
+  </li>
+
+  <li>
+      <a href="/problems"><i class="fa fa-fw fa-bar-chart-o"></i>Problem list</a>
+  </li>
+
+  <li>
+      <a href="/new"><i class="fa fa-fw fa-table"></i>Add new problem</a>
+  </li>
+
+  <li>
+      <a href="/delete"><i class="fa fa-fw fa-edit"></i>Delete existing problem</a>
+  </li>
+       
 </ul>

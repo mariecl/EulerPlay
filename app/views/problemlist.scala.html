@@ -1,6 +1,6 @@
-@(problems : List[models.Problems], queryStrings : HashMap[models.Problems, String])
+@(queryStrings : HashMap[models.Problems, String])
 
-@main(title = "Problem list", sidebar = views.html.sidebar("list"), breadcrumbs = views.html.breadcrumbs()) {
+@main(title = "Problem list", sidebar = views.html.sidebar(), breadcrumbs = views.html.breadcrumbs()) {
  
     <!-- Flot Charts -->
     <div class="row">
@@ -15,11 +15,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @for(problem <- problems) {
-                    <tr>
-                        <td><a href = "/problems/@problem.getProblemId()@queryStrings.get(problem)"> @problem.getProblemName()</td>
-                        <td><a href = "/problems/@problem.getProblemId()@queryStrings.get(problem)"> @problem.getProblemId()</td>
-                    </tr>
+                    @for((problem, queryString) <- queryStrings) {
+                        @if(problem.getProblemId() < 4) {
+                            <tr>
+                                <td><a href = "/problems/@problem.getProblemId()@queryString"> @problem.getProblemName()</td>
+                                <td><a href = "/problems/@problem.getProblemId()@queryString"> @problem.getProblemId()</td>
+                            </tr>
+                        } else {
+                            <tr>
+                                <td> @problem.getProblemName()</td>
+                                <td> @problem.getProblemId()</td>
+                            </tr>
+                        }
                     }
                     </tbody>
                 </table>
