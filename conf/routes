@@ -8,6 +8,9 @@ GET     /                            controllers.Problems.homePage()
 # Problem list
 GET     /problems                    controllers.Problems.showList()
 
+# Problem list as JSON
+GET		/JSON 						controllers.Problems.showListJSON()
+
 # Problem with id
 GET     /problems/:id                controllers.Problems.show(id: Int)
 

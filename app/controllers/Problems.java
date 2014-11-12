@@ -164,4 +164,28 @@ public class Problems extends Controller {
         return ok(views.html.index.render(problemsNb, deleteNb));
     }
 
+    public static Result showListJSON() {
+        // Get the list of all available problems from database
+        List<models.Problems> problems = models.Problems.find.all();
+
+        // Generate a holder for the problems and their query string
+        HashMap<Integer, String> queryStrings = new HashMap<Integer, String>();
+        // Loop over problems
+        for (models.Problems problem: problems) {
+            // Retrieve the list of parameters for the problem with the given id from the database
+            List<models.Parameters> parameters = problem.getParameters();
+            String queryString = "?";
+            // Generates a query string with the default values of the problem
+            for (models.Parameters parameter: parameters) {
+                queryString = queryString
+                            + parameter.getParameterName()
+                            + "=" + parameter.getParameterDefaultValue()
+                            + "&";
+            }
+            // Add the problem and its associated query string in the holder queryStrings
+            queryStrings.put(problem.getProblemId(), queryString);
+        }
+        return ok(Json.toJson(queryStrings));
+    }
+
 }
